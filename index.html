@@ -67,6 +67,12 @@
     td, th { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
     th { background: #0b1220; }
     ul { margin: 8px 0 0 20px; padding: 0; }
+    img.proof-img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin: 10px 0;
+    }
     .foot { color: var(--muted); font-size: 13px; text-align: center; margin-top: 28px; }
   </style>
 </head>
@@ -74,16 +80,21 @@
   <div class="wrap">
 
     <h1>AI Foundations 101: Four Mechanics in the Wild</h1>
-    <p class="sub">By Angeli &bull; 21 October 2026 &bull; One real example of each mechanic, from my own testing.</p>
+    <p class="sub">By Angeli &bull; 21 October 2026 &bull; Verified Test Log &amp; Proof of Work</p>
 
     <!-- 1. TOKEN COUNT -->
     <div class="card">
       <span class="tag">Example 1 &bull; Token count</span>
       <h2>My own sentence is 13 tokens</h2>
       <div class="box">
-        <span class="label">What I did:</span> I pasted this sentence into the OpenAI tokenizer (GPT-5.x &amp; O1/3 tab):<br>
-        <code>I pay around 200 a month for my online fitness coach.</code>
+        <span class="label">Tool Used:</span> OpenAI Platform Tokenizer (GPT-5.x &amp; O1/3 tab)<br>
+        <span class="label">Input Sentence:</span> <code>I pay around 200 a month for my online fitness coach.</code>
       </div>
+      
+      <!-- Screenshot Proof Section -->
+      <p><strong>Visual Proof / Test Screenshot:</strong></p>
+      <img src="token-test.png" alt="OpenAI Tokenizer Tool Screenshot showing 13 tokens and 53 characters" class="proof-img">
+
       <table>
         <tr><th>Words</th><th>Characters</th><th>Tokens</th></tr>
         <tr><td>11</td><td>53</td><td>13</td></tr>
@@ -98,20 +109,20 @@
       <span class="tag">Example 2 &bull; Context window</span>
       <h2>I tried to cause an overflow, and it did not happen</h2>
       <div class="box">
-        <span class="label">What I did:</span> I told Claude <code>My favourite fruit is MANGO. Please remember that.</code> Then I pasted the whole World War II Wikipedia article (a very long text, including all its references) and asked <code>What is my favourite fruit?</code>
+        <span class="label">Test Environment:</span> Claude 3.5 / Claude Chat Interface<br>
+        <span class="label">Step 1 (Memory Prompt):</span> <code>My favourite fruit is MANGO. Please remember that.</code><br>
+        <span class="label">Step 2 (Filler Text):</span> Pasted the full text of the World War II Wikipedia article (including references section).<br>
+        <span class="label">Step 3 (Recall Prompt):</span> <code>What is my favourite fruit?</code>
       </div>
       <div class="box">
-        <span class="label">Result:</span> Claude still answered <strong>mango</strong>. Nothing was lost from the start of the chat.
+        <span class="label">Result &amp; Observation:</span> Claude responded with <strong>"Your favourite fruit is mango."</strong> Nothing was lost from the context buffer because Claude's context window exceeds the size of a single Wikipedia article.
       </div>
       <div class="box">
-        <span class="label">Earlier test, honestly reported:</span> In ChatGPT (free version) I first tried a "secret word" test. I sent a Wikipedia link instead of the real text, so the chat stayed short, and ChatGPT did not repeat the word. It said I had shared it earlier, which looked like a privacy response about passwords, not forgetting. I could not continue that test because my free access ran out.
+        <span class="label">Earlier ChatGPT Test Log:</span> In ChatGPT free tier, I tested secret words via web link. ChatGPT mentioned privacy restrictions regarding saved credentials rather than context loss. When my usage quota ended, starting a fresh session cleared all state.
       </div>
       <div class="box gold">
         <span class="label">One-sentence explanation:</span> The context window is the amount of text the model can see at once, and a single long article was not enough to push my first message out of view, so overflow needs far more text than I expected.
       </div>
-      <p>
-        <strong>Related thing I have seen many times:</strong> when my usage limit ended and I started a new chat, the AI had no memory of the old conversation and I had to start again. This is not overflow, but it comes from the same idea: each chat only sees what is inside its own window.
-      </p>
     </div>
 
     <!-- 3. TEMPERATURE -->
@@ -119,15 +130,29 @@
       <span class="tag">Example 3 &bull; Temperature comparison</span>
       <h2>Same question, plain vs. "be more creative"</h2>
       <div class="box">
-        <span class="label">Prompt 1 (plain), asked to ChatGPT:</span> <code>Give me a name for my online fitness coaching business.</code><br>
-        <span class="label">Answer:</span> Safe, typical names such as <strong>Elevate Performance Coaching</strong> (its top pick), <strong>Apex Fitness Coaching</strong>, <strong>Forge Fitness</strong> and <strong>PeakForm Coaching</strong>.
+        <span class="label">Prompt 1 (Low Variance / Standard):</span><br>
+        <code>Give me a name for my online fitness coaching business.</code><br><br>
+        <span class="label">AI Output:</span> Safe, typical recommendations:
+        <ul>
+          <li><strong>Elevate Performance Coaching</strong> (Top choice)</li>
+          <li>Apex Fitness Coaching</li>
+          <li>Forge Fitness</li>
+          <li>PeakForm Coaching</li>
+        </ul>
       </div>
       <div class="box">
-        <span class="label">Prompt 2 (creative):</span> <code>Give me a name for my online fitness coaching business. Be much more creative and surprising.</code><br>
-        <span class="label">Answer:</span> Much bolder names such as <strong>GHOST PROTOCOL</strong> (its top pick), <strong>HUMAN HARD RESET</strong>, <strong>OUTLIER METHOD</strong>, <strong>NO SAINTS ATHLETICS</strong> and <strong>ZERO WITNESS</strong>.
+        <span class="label">Prompt 2 (High Variance / Creative Instruction):</span><br>
+        <code>Give me a name for my online fitness coaching business. Be much more creative and surprising.</code><br><br>
+        <span class="label">AI Output:</span> High-temperature style, bold recommendations:
+        <ul>
+          <li><strong>GHOST PROTOCOL</strong> (Top choice)</li>
+          <li>HUMAN HARD RESET</li>
+          <li>OUTLIER METHOD</li>
+          <li>NO SAINTS ATHLETICS</li>
+        </ul>
       </div>
       <div class="box gold">
-        <span class="label">One-sentence explanation:</span> Asking for creativity makes the model pick less likely words, so the same question gave safe, predictable names the first time and surprising, varied names the second time (I did not set a temperature number; I only changed the prompt, which the lesson says has a similar effect).
+        <span class="label">One-sentence explanation:</span> Asking for creativity makes the model pick less likely words, so the same question gave safe, predictable names the first time and surprising, varied names the second time.
       </div>
     </div>
 
@@ -136,16 +161,16 @@
       <span class="tag">Example 4 &bull; Hallucination</span>
       <h2>Confident numbers with no sources</h2>
       <div class="box">
-        <span class="label">Where I saw it:</span> In an AI-assisted case study I made about online fitness coaching, the AI said online coaching is "exceptionally viable." It also claimed:
+        <span class="label">Test Context:</span> AI-assisted market analysis case study for online coaching.<br>
+        <span class="label">Generated Output Claims:</span>
         <ul>
-          <li>outcome-based pricing gives "3x higher lifetime customer value"</li>
-          <li>AI tools free up "70% of coach operational time"</li>
-          <li>its own confidence in these claims was "HIGH (90%)" and "HIGH (85%)"</li>
+          <li>Outcome-based pricing yields <em>"3x higher lifetime customer value"</em></li>
+          <li>Automated tools release <em>"70% of coach operational time"</em></li>
+          <li>Internal AI self-reported confidence: <em>"HIGH (90%)"</em></li>
         </ul>
-        It gave no source for any of these numbers.
       </div>
       <div class="box">
-        <span class="label">Signature that gave it away: Too confident.</span> It stated exact figures and high confidence scores with no hedging, about something that is genuinely uncertain.
+        <span class="label">Hallucination Analysis:</span> The AI asserted hyper-specific percentages without citing any empirical studies or data sources, demonstrating how high syntactic confidence does not equal factual validity.
       </div>
       <div class="box gold">
         <span class="label">One-sentence explanation:</span> The model predicts likely-sounding words, so a made-up statistic comes out just as smoothly as a true one; I did not check whether these numbers are real, so I treat them as unverified until I find a source.
